@@ -1,0 +1,6 @@
+@APIWebPDF_HostAddress = http://localhost:5020
+
+GET {{APIWebPDF_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
