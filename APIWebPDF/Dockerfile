@@ -3,6 +3,9 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 EXPOSE 80
 
+# Cria a pasta Boletos no container
+RUN mkdir -p /app/Boletos
+
 # Etapa 2: imagem com o SDK do .NET para buildar o projeto
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
