@@ -6,14 +6,18 @@ namespace APIWebPDF.Controllers
     [Route("api/[controller]")]
     public class BoletoPDFController : ControllerBase
     {
-        private const string DiretórioBoletos = "Boletos";
-        private const string UsuarioAutorizado = "admin";
-        private const string SenhaAutorizada = "senha123";
+        private readonly string _diretorioBoletos;
+        private readonly string _usuarioAutorizado;
+        private readonly string _senhaAutorizada;
 
         public BoletoPDFController()
         {
-            if (!Directory.Exists(DiretórioBoletos))
-                Directory.CreateDirectory(DiretórioBoletos);
+            _diretorioBoletos = Environment.GetEnvironmentVariable("DIRETORIO_BOLETOS") ?? "Boletos";
+            _usuarioAutorizado = Environment.GetEnvironmentVariable("USUARIO_AUTORIZADO") ?? "admin";
+            _senhaAutorizada = Environment.GetEnvironmentVariable("SENHA_AUTORIZADA") ?? "senha123";
+
+            if (!Directory.Exists(_diretorioBoletos))
+                Directory.CreateDirectory(_diretorioBoletos);
         }
 
         [HttpPost("upload")]
@@ -45,7 +49,7 @@ namespace APIWebPDF.Controllers
                 string safeFileName = $"{request.CNPJ}_{formattedDate}_{request.FileName}".Replace(" ", "_");
 
                 // Caminho completo do arquivo
-                string filePath = Path.Combine(DiretórioBoletos, safeFileName);
+                string filePath = Path.Combine(_diretorioBoletos, safeFileName);
 
                 // Salvar o arquivo
                 await System.IO.File.WriteAllBytesAsync(filePath, pdfBytes);
@@ -64,7 +68,7 @@ namespace APIWebPDF.Controllers
 
         private bool Autenticar(string username, string password)
         {
-            return username == UsuarioAutorizado && password == SenhaAutorizada;
+            return username == _usuarioAutorizado && password == _senhaAutorizada;
         }
     }
 }
