@@ -65,6 +65,12 @@ namespace APIWebPDF.Controllers
             }
         }
 
+        [HttpGet("HelloWorld")]
+        public async Task<string> hello()
+        {
+            return "HelloWorld";
+        }
+
 
         private bool Autenticar(string username, string password)
         {
