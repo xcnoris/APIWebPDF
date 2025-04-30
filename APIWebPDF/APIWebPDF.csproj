@@ -9,5 +9,10 @@
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
+	<ItemGroup>
+		<None Include="Boletos\**\*">
+			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
+		</None>
+	</ItemGroup>
 
 </Project>

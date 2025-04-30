@@ -1,3 +1,5 @@
+using Microsoft.Extensions.FileProviders;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Adiciona os serviços MVC (Controllers)
@@ -38,6 +40,18 @@ else
 // Aplica a política de CORS
 app.UseCors("AllowAllOrigins");
 
+
+var boletosPath = Path.Combine(Directory.GetCurrentDirectory(), "Boletos");
+if (!Directory.Exists(boletosPath))
+{
+    Directory.CreateDirectory(boletosPath);
+}
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(boletosPath),
+    RequestPath = "/files"
+});
 // Servir arquivos da pasta "Boletos"
 app.UseStaticFiles(new StaticFileOptions
 {
