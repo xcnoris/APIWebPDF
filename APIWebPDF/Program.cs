@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Adiciona os serviços MVC (Controllers)
 builder.Services.AddControllers();
-
+builder.WebHost.UseUrls("http://0.0.0.0:5010");
 // Configura CORS para permitir todas as origens (para produção, é bom restringir depois)
 builder.Services.AddCors(options =>
 {
